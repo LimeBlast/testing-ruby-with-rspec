@@ -15,6 +15,16 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+
+  # These callbacks are performed across all tests
+  config.after(:example) do
+    puts 'This runs after each example/test'
+  end
+
+  config.before(:suite) do
+    puts 'This gets exicuted before the entire suite of tests runs'
+  end
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
