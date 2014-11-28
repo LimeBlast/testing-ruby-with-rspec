@@ -2,8 +2,13 @@ require 'blog'
 require 'post'
 
 describe Blog do
-  it 'has no posts' do
-    expect(Blog.new).to be_empty
+
+  context 'with no posts' do
+    let(:blog) { Blog.new }
+
+    it 'has no posts' do
+      expect(blog).to be_empty
+    end
   end
 
   context 'with one post' do
