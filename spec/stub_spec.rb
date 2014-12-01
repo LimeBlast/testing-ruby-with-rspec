@@ -2,9 +2,9 @@ require 'price_calculator'
 require 'product'
 
 describe 'Stubs' do
-  it 'provides stubs to simulate state' do
-    calculator = PriceCalculator.new
+  let(:calculator) { calculator = PriceCalculator.new }
 
+  it 'provides stubs to simulate state' do
     # Simulates an object which responds to specificied calls
     calculator.add double(price: 1.0)
 
@@ -25,5 +25,23 @@ describe 'Stubs' do
     calculator.add yet_another_product_stub # Receives 2.0 again
 
     expect(calculator.final_price).to eq 107.25
+  end
+
+  it 'provides mocks to assert on message passing' do
+    product_mock = double(:product)
+    expect(product_mock).to receive(:price).with(any_args).exactly(3).and_return(1.0)
+
+    calculator.add product_mock
+    calculator.add product_mock
+    calculator.add product_mock
+
+    calculator.final_price
+  end
+
+  it 'provides mocks to assert on message passing again' do
+    expect_any_instance_of(Product).to receive(:price) { 5 }
+
+    product = Product.new(123, 'Name', 'Sportswear')
+    puts product.price
   end
 end
